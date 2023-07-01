@@ -19,4 +19,6 @@
 
   local_port: 8080, /* port on which the server listen to */
   log_start: true, /* print "Started." when the server is ready */
+  gui: true, /* start a simple GUI when exploring the root path
+               (e.g. http://localhost:8080 here) (default = false) */
 }

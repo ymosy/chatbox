@@ -2,7 +2,7 @@ FROM fedora
 
 WORKDIR /root/ts_server
 
-ADD https://bellard.org/ts_server/ts_server-2023-03-15.tar.gz .
+ADD https://bellard.org/ts_server/ts_server_free-2023-06-10.tar.gz .
 
 RUN dnf install -y libjpeg libmicrohttpd \
     && dnf clean all \

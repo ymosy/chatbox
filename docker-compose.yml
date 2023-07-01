@@ -5,6 +5,8 @@ services:
     image: ts_server
     build: .
     restart: always
+    ports:
+      - 127.0.0.1:8080:8080
     volumes:
       - ./configs/ts_server.cfg:/root/ts_server/ts_server.cfg
       - ./models:/root/ts_server/models

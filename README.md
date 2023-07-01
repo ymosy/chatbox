@@ -6,16 +6,18 @@ This is Chat Box, a simple project with Fabrice Bellard's [ts_server](https://be
 
 Additionally, a JS implementation of iteration over chunked transfer encoding was requested from and successfully implemented using ChatGPT as well.
 
-Only certain aspects have been polished manually such as tweaking the font-size, paddings/margins and other minor cosmetic touchups as well as adding convenience features such as storing the selected model file in a session cookie, etc. Overall, the project took one evening from a concept to an actual tested implementation.
+Only certain aspects of the initial implementation have been polished manually such as tweaking the font-size, paddings/margins and other minor cosmetic touchups as well as adding convenience features such as storing the selected model file in a session cookie, etc. Overall, the project took one evening from a concept to an actual tested implementation.
 
 # Running the application
 ## Prerequisites
 - Docker Compose
-- [Model file(s)](https://bellard.org/ts_server/#:~:text=13.8-,Available%20Models,-We%20provide%20here).
+- [Model file(s)](https://bellard.org/ts_server/#:~:text=1.7-,Available%20Models,-We%20provide%20here).
 
-Download at least one model, put the model file into the `models` directory and update the `models` list in ts_server [config file](configs/ts_server.cfg) accordinglly. I suggest to start with `flan_t5_xxl_q4.bin` and/or `gptj_6B_q4.bin` which are offering a good size/performance ratio. However, LLaMA models are even better in this regard if you have access to those.
+Copy [ts_server.cfg.example file](configs/ts_server.cfg.example) to `configs/ts_server.cfg`.
 
-Restart the container (`docker compose restart chatbox`) when you add new models. Don't forget to select the new model in the dropdown on the Chat Box page. It already contains a predefined list of all the models listed on ts_server website.
+Download at least one model, put the model file into the `models` directory and update the `models` list in the `configs/ts_server.cfg` file accordinglly. I suggest to start with `flan_t5_xxl_q4.bin` and/or `gptj_6B_q4.bin` which are offering a good size/performance ratio. However, LLaMA models are even better in this regard if you have access to those.
+
+Note: Restart the container (`docker compose restart ts_server`) when you add new models. Don't forget to select the new model in the dropdown on the Chat Box page. It already contains a predefined list of all the models listed on ts_server website.
 
 ## Building/starting the app
 The following will build/download necessary containers and bring the application up:
@@ -24,7 +26,11 @@ The following will build/download necessary containers and bring the application
 Alternatively, you can run it detached and watch the logs so that Ctrl+C doesn't terminate containers.
 > `docker compose up -d && docker compose logs -f`
 
-The application will now be available at http://localhost:9000. It might take several minutes to load big models until the API becomes available.
+Two UIs will now be available for you:
+* Chat Box UI: http://localhost:9000
+* ts_server built-in HTML GUI: http://localhost:8080
+
+It might take several minutes to load big models until the API becomes available.
 
 # Initial prompt
 Here's the initial prompt to ChatGPT which served as a foundation and a kickstart for this project:

@@ -125,7 +125,7 @@
             const error = document.querySelector(".error-message");
             const submitButton = document.querySelector("#submit-button");
 
-            const url = `v1/engines/${model.value}/completions`;
+            const url = `/v1/engines/${model.value}/completions`;
             const headers = new Headers({
                 "Content-Type": "application/json"
             });
@@ -158,6 +158,7 @@
                     const reader = response.body.getReader();
 
                     output.innerHTML += "<b>" + html_escape(input.value) + "</b>";
+                    output.scrollTop = output.scrollHeight;
 
                     while (true) {
                         const { done, value } = await reader.read();
@@ -168,16 +169,16 @@
                         // >
                         // > {"text":"","reached_end":true}
                         decoded_value = new TextDecoder("utf-8").decode(value).split("\n");
-                        console.log(decoded_value);
                         decoded_value.forEach((json_data) => {
                             if (json_data) {
                                 data = JSON.parse(json_data);
                             }
                         });
                         output.innerHTML += html_escape(data.text);
+                        output.scrollTop = output.scrollHeight;
                     }
 
-                    output.innerHTML += "<p>"
+                    output.innerHTML += "<p>";
 
                     input.value = "";
                     output.scrollTop = output.scrollHeight;
@@ -239,14 +240,19 @@
                 <div class="token-slider-value">Limit output to <input type="text" id="token-slider-value-input" value="200" autocomplete="off">/1024 characters</div>
             </div>
             <div class="model-dropdown-container">
-                <label for="model-dropdown">Choose a <a href="https://bellard.org/ts_server/#:~:text=13.8-,Available%20Models,-We%20provide%20here">model</a>:</label>
+                <label for="model-dropdown">Choose a <a href="https://bellard.org/ts_server/#:~:text=7.1-,Available%20Models,-We%20provide%20here">model</a>:</label>
                 <select id="model-dropdown" name="model-dropdown" onchange="document.cookie = `selected-model-idx=${this.selectedIndex}; path=/;`">
                     <option value="bloom_560M">bloom_560M</option>
                     <option value="codegen_6B_mono_q4">codegen_6B_mono_q4</option>
                     <option value="codegen_6B_mono_q8">codegen_6B_mono_q8</option>
                     <option value="fairseq_gpt_13B">fairseq_gpt_13B</option>
-                    <option value="fairseq_gpt_13B_bf4">fairseq_gpt_13B_bf4</option>
-                    <option value="fairseq_gpt_13B_bf8">fairseq_gpt_13B_bf8</option>
+                    <option value="fairseq_gpt_13B_q4">fairseq_gpt_13B_q4</option>
+                    <option value="fairseq_gpt_13B_q8">fairseq_gpt_13B_q8</option>
+                    <option value="falcon_40B_q4">falcon_40B_q4</option>
+                    <option value="falcon_40B_q8">falcon_40B_q8</option>
+                    <option value="falcon_7B">falcon_7B</option>
+                    <option value="falcon_7B_q4">falcon_7B_q4</option>
+                    <option value="falcon_7B_q8">falcon_7B_q8</option>
                     <option value="flan_t5_base">flan_t5_base</option>
                     <option value="flan_t5_base_q8">flan_t5_base_q8</option>
                     <option value="flan_t5_small">flan_t5_small</option>
@@ -294,6 +300,8 @@
                     <option value="pythia_deduped_6.9B_q4">pythia_deduped_6.9B_q4</option>
                     <option value="pythia_deduped_6.9B_q8">pythia_deduped_6.9B_q8</option>
                     <option value="pythia_deduped_70M">pythia_deduped_70M</option>
+                    <option value="RedPajama-INCITE-7B_q4">RedPajama-INCITE-7B_q4</option>
+                    <option value="RedPajama-INCITE-7B_q8">RedPajama-INCITE-7B_q8</option>
                     <option value="rwkv_14B">rwkv_14B</option>
                     <option value="rwkv_14B_q4">rwkv_14B_q4</option>
                     <option value="rwkv_14B_q8">rwkv_14B_q8</option>
